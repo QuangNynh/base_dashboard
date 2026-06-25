@@ -1,0 +1,171 @@
+import { DataTable } from '@/components/common/data-table';
+import { TooltipCustom } from '@/components/common/TooltipCustom';
+import { Badge } from '@/components/ui/badge';
+import { getStatusLabel, removeStatusPrefix } from '@/constants/status';
+import i18n from '@/i18n';
+import { truncate } from '@/lib/utils';
+import { complaintService } from '@/services/complaintService';
+import type { OrderActionHistoryItem } from '@/types/complaint-management';
+import { useQuery } from '@tanstack/react-query';
+import type { ColumnDef, PaginationState } from '@tanstack/react-table';
+import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+type OrderStatus = 'DELIVERED' | 'DELIVERING' | 'PROCESSING' | 'WAITING' | 'RETURNED' | 'CANCELLED';
+
+const STATUS_CONFIG: Record<OrderStatus, { labelKey: string; className: string }> = {
+  DELIVERED: {
+    labelKey: 'orderStatus.DELIVERED',
+    className: 'bg-green-100 text-green-700 hover:bg-green-100 border-green-200',
+  },
+  DELIVERING: {
+    labelKey: 'orderStatus.DELIVERING',
+    className: 'bg-blue-100 text-blue-600 hover:bg-blue-100 border-blue-200',
+  },
+  PROCESSING: {
+    labelKey: 'orderStatus.PROCESSING',
+    className: 'bg-orange-100 text-orange-600 hover:bg-orange-100 border-orange-200',
+  },
+  WAITING: {
+    labelKey: 'orderStatus.WAITING',
+    className: 'bg-yellow-100 text-yellow-700 hover:bg-yellow-100 border-yellow-200',
+  },
+  RETURNED: {
+    labelKey: 'orderStatus.RETURNED',
+    className: 'bg-gray-100 text-gray-600 hover:bg-gray-100 border-gray-200',
+  },
+  CANCELLED: {
+    labelKey: 'orderStatus.CANCELLED',
+    className: 'bg-red-100 text-red-600 hover:bg-red-100 border-red-200',
+  },
+};
+
+interface Props {
+  data: OrderActionHistoryItem[];
+  pageCount?: number;
+  onPaginationChange?: (pagination: PaginationState) => void;
+  isLoading?: boolean;
+}
+
+const ListDataInformationOrderDetailTracking = ({
+  data,
+  pageCount,
+  onPaginationChange,
+  isLoading = false,
+}: Props) => {
+  const { t } = useTranslation();
+  const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 5 });
+
+  const handlePaginationChange = (
+    updater: PaginationState | ((prev: PaginationState) => PaginationState)
+  ) => {
+    const next = typeof updater === 'function' ? updater(pagination) : updater;
+    setPagination(next);
+    onPaginationChange?.(next);
+  };
+  const { data: enumData } = useQuery({
+    queryKey: ['tracking-status-enum', i18n.language],
+    queryFn: () => complaintService.getTrackingStatusEnum(),
+    staleTime: Infinity,
+  });
+
+  const columns: ColumnDef<OrderActionHistoryItem>[] = useMemo(
+    () => [
+      {
+        id: 'postOffice',
+        accessorKey: 'postOffice',
+        header: t('orderActionHistory.postOffice'),
+      },
+      {
+        id: 'province',
+        accessorKey: 'province',
+        header: t('orderActionHistory.province'),
+      },
+      {
+        id: 'actionPerson',
+        accessorKey: 'actionPerson',
+        header: t('orderActionHistory.actionPerson'),
+        cell: ({ getValue }) => {
+          const value = getValue<string>();
+          return (
+            <TooltipCustom content={value}>
+              <span className='block '>{truncate(value)}</span>
+            </TooltipCustom>
+          );
+        },
+      },
+      {
+        id: 'actionTime',
+        accessorKey: 'actionTime',
+        header: t('orderActionHistory.actionTime'),
+      },
+      {
+        id: 'content',
+        accessorKey: 'content',
+        header: t('orderActionHistory.content'),
+        cell: ({ getValue }) => {
+          const value = getValue<string>();
+
+          return (
+            <TooltipCustom content={value}>
+              <span className='block '>{truncate(value)}</span>
+            </TooltipCustom>
+          );
+        },
+      },
+
+      {
+        id: 'statusJourney',
+        // jorneyStatusDesc
+        accessorKey: 'status',
+        header: t('orderActionHistory.note'),
+        cell: ({ getValue }) => {
+          const value = getValue<string>();
+          const label = getStatusLabel(value, enumData?.TrackingOrderStatus);
+          return <span className='block'>{label}</span>;
+        },
+      },
+      {
+        id: 'licensePlate',
+        accessorKey: 'licensePlate',
+        header: t('orderActionHistory.licensePlate'),
+      },
+      {
+        id: 'destinationPostOffice',
+        accessorKey: 'destinationPostOffice',
+        header: t('orderActionHistory.destinationPostOffice'),
+      },
+      {
+        id: 'status',
+        accessorKey: 'status',
+        header: t('orderActionHistory.status'),
+        cell: ({ getValue }) => {
+          const status = getValue<string>();
+          const config = STATUS_CONFIG[status as OrderStatus];
+          if (!config) return <span>{removeStatusPrefix(status)}</span>;
+          return (
+            <Badge variant='outline' className={config.className}>
+              {t(config.labelKey)}
+            </Badge>
+          );
+        },
+      },
+    ],
+    [t, enumData?.TrackingOrderStatus]
+  );
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      pageSizeOptions={[5, 10, 20]}
+      pagination={pagination}
+      onPaginationChange={handlePaginationChange}
+      pageCount={pageCount}
+      manualPagination={!!pageCount}
+      isLoading={isLoading}
+    />
+  );
+};
+
+export default ListDataInformationOrderDetailTracking;
