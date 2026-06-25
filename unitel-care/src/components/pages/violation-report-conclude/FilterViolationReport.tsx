@@ -4,8 +4,8 @@ import type { ViolationReportFilterData } from '../../../types/violation-report-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 import type { BranchResponse, PostOfficeResponse } from '../../../types/post-office';
-import { postOfficeService } from '../../../services/postOfficeService';
-import { violationReportService } from '../../../services/violationReport';
+import { postOfficeService } from '@/services/postOfficeService';
+import { violationReportService } from '@/services/violationReport';
 import type { Option } from '../../../types/common';
 import type { ViolationErrorDetailListResponse } from '../../../types/violation-report';
 import ButtonLoading from '@/components/common/ButtonLoading';

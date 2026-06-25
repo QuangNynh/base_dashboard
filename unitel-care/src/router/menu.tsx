@@ -3,7 +3,6 @@ import { ClipboardList } from 'lucide-react';
 import type React from 'react';
 import { ROUTES } from './routes.config';
 import InvoiceIcon from '@/assets/icons/InvoiceIcon';
-import { ROLE_GROUP } from '@/constants/permissions';
 
 export interface MenuItem {
   name: string;
@@ -17,7 +16,7 @@ export const menu: MenuItem[] = [
   {
     name: 'common.shipmentTracking',
     icon: LocationIcon,
-    permissions: [ROLE_GROUP.CSKH, ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC],
+    permissions: [],
     url: ROUTES.SHIPMENT_TRACKING,
   },
   {
@@ -28,17 +27,17 @@ export const menu: MenuItem[] = [
       {
         name: 'common.listComplaint',
         url: ROUTES.ROOT,
-        permissions: [ROLE_GROUP.CSKH, ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC],
+        permissions: [],
       },
       {
         name: 'common.settingComplaint',
         url: ROUTES.COMPLAINT_MANAGEMENT_SETTING,
-        permissions: [ROLE_GROUP.VAN_HANH],
+        permissions: [],
       },
       {
         name: 'common.complaintRateReport',
         url: ROUTES.COMPLAINT_RATE_REPORT,
-        permissions: [ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC, ROLE_GROUP.CSKH],
+        permissions: [],
       },
     ],
   },
@@ -50,7 +49,7 @@ export const menu: MenuItem[] = [
       {
         name: 'common.violationReportConfig',
         url: ROUTES.VIOLATION_REPORT_CONFIG,
-        permissions: ['ODOWTC'],
+        permissions: [],
       },
       {
         name: 'common.violationReportList',
@@ -60,7 +59,7 @@ export const menu: MenuItem[] = [
       {
         name: 'common.violationReportConclude',
         url: ROUTES.VIOLATION_REPORT_CONCLUDE,
-        permissions: ['ODOWTC'],
+        permissions: [],
       },
       {
         name: 'common.violationReportRateReport',
@@ -82,7 +81,7 @@ export const menu: MenuItem[] = [
       {
         name: 'compensation.money',
         url: ROUTES.COMPENSATION_MONEY,
-        permissions: ['HFIN', 'FINS', 'FINGEN', 'FINBR'],
+        permissions: [],
       },
       {
         name: 'common.reportCompensation',

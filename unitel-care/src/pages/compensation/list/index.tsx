@@ -12,7 +12,7 @@ import { saveAs } from 'file-saver';
 import { toast } from 'sonner';
 import { compensationService } from '@/services/compensation';
 import { compact } from 'lodash';
-import { violationReportService } from '../../../services/violationReport';
+import { postOfficeService } from '@/services/postOfficeService';
 
 const ListCompensation = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const ListCompensation = () => {
 
   const { data: postOfficesRes } = useQuery({
     queryKey: ['compensation-list-post-offices'],
-    queryFn: () => violationReportService.getListAccessiblePostOffice(''),
+    queryFn: () => postOfficeService.getListPostOffice(''),
     staleTime: 5 * 60 * 1000,
   });
 

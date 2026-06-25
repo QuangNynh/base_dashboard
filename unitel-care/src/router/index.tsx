@@ -23,7 +23,6 @@ import ViolationReportConcludeDetail from '../pages/violation-report/conclude/vi
 import ViolationReportConcludeSubmit from '../pages/violation-report/conclude/violation-report-conclude';
 import ViolationReportConfigErrorCodeHistory from '@/pages/violation-report/config/history';
 import ViolationRateReportPage from '@/pages/violation-report/rate-report';
-import { ROLE_GROUP } from '@/constants/permissions';
 import ListCompensation from '@/pages/compensation/list';
 import CompensationDetail from '@/pages/compensation/list/compensation-detail';
 import CompleteCompensation from '@/pages/compensation/list/complete-compensation';
@@ -47,7 +46,7 @@ export const routers: AppRoute[] = [
         index: true,
         path: ROUTES.ROOT,
         element: (
-          <ProtectedRoute roles={[ROLE_GROUP.CSKH, ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC]}>
+          <ProtectedRoute roles={[]}>
             <ListComplaintManagement />
           </ProtectedRoute>
         ),
@@ -56,7 +55,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.COMPLAINT_MANAGEMENT_CREATE,
         element: (
-          <ProtectedRoute roles={[ROLE_GROUP.CSKH, ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC]}>
+          <ProtectedRoute roles={[]}>
             <CreateComplaintPage />
           </ProtectedRoute>
         ),
@@ -65,7 +64,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.COMPLAINT_MANAGEMENT_EDIT,
         element: (
-          <ProtectedRoute roles={[ROLE_GROUP.CSKH, ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC]}>
+          <ProtectedRoute roles={[]}>
             <EditComplaintPage />
           </ProtectedRoute>
         ),
@@ -83,7 +82,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.COMPLAINT_MANAGEMENT_ORDER_DETAIL,
         element: (
-          <ProtectedRoute roles={[ROLE_GROUP.CSKH, ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC]}>
+          <ProtectedRoute roles={[]}>
             <OrderDetailPage />
           </ProtectedRoute>
         ),
@@ -92,7 +91,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.COMPLAINT_MANAGEMENT_HANDING,
         element: (
-          <ProtectedRoute roles={[ROLE_GROUP.CSKH, ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC]}>
+          <ProtectedRoute roles={[]}>
             <ComplaintHandingPage />
           </ProtectedRoute>
         ),
@@ -101,7 +100,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.COMPLAINT_MANAGEMENT_SETTING,
         element: (
-          <ProtectedRoute roles={[ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC]}>
+          <ProtectedRoute roles={[]}>
             <SettingComplaintManagement />
           </ProtectedRoute>
         ),
@@ -110,7 +109,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.COMPLAINT_RATE_REPORT,
         element: (
-          <ProtectedRoute roles={[ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC, ROLE_GROUP.CSKH]}>
+          <ProtectedRoute roles={[]}>
             <ComplaintRateReportPage />
           </ProtectedRoute>
         ),
@@ -119,7 +118,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.SHIPMENT_TRACKING,
         element: (
-          <ProtectedRoute roles={[ROLE_GROUP.CSKH, ROLE_GROUP.VAN_HANH, ROLE_GROUP.NVBC]}>
+          <ProtectedRoute roles={[]}>
             <ShipmentTrackingPage />
           </ProtectedRoute>
         ),
@@ -128,7 +127,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.VIOLATION_REPORT_CONFIG,
         element: (
-          <ProtectedRoute roles={['ODOWTC']}>
+          <ProtectedRoute roles={[]}>
             <ViolationReportConfig />
           </ProtectedRoute>
         ),
@@ -137,7 +136,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.VIOLATION_REPORT_CONFIG_HISTORY,
         element: (
-          <ProtectedRoute roles={['ODOWTC']}>
+          <ProtectedRoute roles={[]}>
             <ViolationReportConfigErrorCodeHistory />
           </ProtectedRoute>
         ),
@@ -182,7 +181,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.VIOLATION_REPORT_CONCLUDE,
         element: (
-          <ProtectedRoute roles={['ODOWTC']}>
+          <ProtectedRoute roles={[]}>
             <ViolationReportConcludeList />
           </ProtectedRoute>
         ),
@@ -191,7 +190,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.VIOLATION_REPORT_CONCLUDE_DETAIL,
         element: (
-          <ProtectedRoute roles={['ODOWTC']}>
+          <ProtectedRoute roles={[]}>
             <ViolationReportConcludeDetail />
           </ProtectedRoute>
         ),
@@ -200,7 +199,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.VIOLATION_REPORT_CONCLUDE_DETAIL_CONCLUDE,
         element: (
-          <ProtectedRoute roles={['ODOWTC']}>
+          <ProtectedRoute roles={[]}>
             <ViolationReportConcludeSubmit />
           </ProtectedRoute>
         ),
@@ -245,7 +244,7 @@ export const routers: AppRoute[] = [
       {
         path: ROUTES.COMPENSATION_MONEY,
         element: (
-          <ProtectedRoute roles={['HFIN', 'FINS', 'FINGEN', 'FINBR']}>
+          <ProtectedRoute roles={[]}>
             <CompensationMoney />
           </ProtectedRoute>
         ),

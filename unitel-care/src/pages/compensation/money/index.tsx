@@ -19,7 +19,7 @@ import {
 } from '@/constants/status';
 import compact from 'lodash/compact';
 import { format, startOfMonth } from 'date-fns';
-import { violationReportService } from '../../../services/violationReport';
+import { postOfficeService } from '@/services/postOfficeService';
 
 const DATE_FORMAT = 'dd/MM/yyyy';
 
@@ -43,7 +43,7 @@ const Money: React.FC = () => {
 
   const { data: postOfficesRes } = useQuery({
     queryKey: ['compensation-money-all-post-offices'],
-    queryFn: () => violationReportService.getListAccessiblePostOffice(''),
+    queryFn: () => postOfficeService.getListPostOffice(''),
     staleTime: 5 * 60 * 1000,
   });
 

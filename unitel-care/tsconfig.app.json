@@ -26,6 +26,8 @@
 
     "baseUrl": ".",
     "paths": {
+      "@/services/authService": ["./src/services/authService"],
+      "@/services/*": ["./src/mocks/*"],
       "@/*": ["./src/*"]
     }
   },

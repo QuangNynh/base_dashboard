@@ -8,6 +8,8 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
+      '@/services/authService': path.resolve(__dirname, './src/services/authService'),
+      '@/services': path.resolve(__dirname, './src/mocks'),
       '@': path.resolve(__dirname, './src'),
     },
   },
